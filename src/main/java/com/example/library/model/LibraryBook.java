@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class Library {
+public class LibraryBook {
     @Id
     @GeneratedValue
     private Long id;

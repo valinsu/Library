@@ -3,7 +3,7 @@ package com.example.library.controller;
 
 import com.example.library.model.Book;
 import com.example.library.service.BookService;
-import com.example.library.service.LibraryService;
+import com.example.library.service.LibraryBookService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
-    private final LibraryService libraryService;
+    private final LibraryBookService libraryBookService;
     @GetMapping
     public List<Book> findAllBook() {
         return bookService.findAllBook();
@@ -27,7 +27,7 @@ public class BookController {
     @PostMapping("save_book")
     public Book createBook(@RequestBody Book book) {
         bookService.createBook(book);
-        libraryService.createLibraryEntryAsync(book.getId());
+        libraryBookService.createLibraryEntryAsync(book.getId());
         return book;
     }
 
@@ -47,7 +47,7 @@ public class BookController {
 
     @DeleteMapping("delete_book/{isbn}")
     public void deleteBook(@PathVariable String isbn){
-        libraryService.deleteLibraryBook(bookService.findBookByIsbn(isbn).getId());
+        libraryBookService.deleteLibraryBook(bookService.findBookByIsbn(isbn).getId());
         bookService.deleteBook(isbn);
 
     }

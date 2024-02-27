@@ -1,10 +1,10 @@
 package com.example.library.impl;
 
 import com.example.library.model.Book;
-import com.example.library.model.Library;
+import com.example.library.model.LibraryBook;
 import com.example.library.repository.BookRepository;
-import com.example.library.repository.LibraryRepository;
-import com.example.library.service.LibraryService;
+import com.example.library.repository.LibraryBookRepository;
+import com.example.library.service.LibraryBookService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +17,12 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class LibraryServiceImpl implements LibraryService {
+public class LibraryBookServiceImpl implements LibraryBookService {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(LibraryServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(LibraryBookServiceImpl.class);
 
-    private final LibraryRepository libraryRepository;
+    private final LibraryBookRepository libraryBookRepository;
     private final BookRepository bookRepository;
 
 
@@ -31,8 +31,8 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public List<Book> findFreeBook() {
         List<Book> freeBooks = new ArrayList<>();
-        List<Library> libraries = libraryRepository.findAll();
-        for (Library libraryEntry : libraries) {
+        List<LibraryBook> libraries = libraryBookRepository.findAll();
+        for (LibraryBook libraryEntry : libraries) {
             if (libraryEntry.getReturnTime() != null && libraryEntry.getReturnTime().isBefore(LocalDateTime.now())) {
                 Book freeBook = bookRepository.findBookById(libraryEntry.getBookId());
                 if (freeBook != null) {
@@ -46,13 +46,13 @@ public class LibraryServiceImpl implements LibraryService {
     @Async
     @Override
     public void createLibraryEntryAsync(Long bookId) {
-        if (libraryRepository.existsByBookId(bookId)) {
-            logger.info("Exists library for book with ID: {}", bookId);
+        if (libraryBookRepository.existsByBookId(bookId)) {
+            logger.info("Exists library book for book with ID: {}", bookId);
         } else {
-            Library libraryEntry = new Library();
+            LibraryBook libraryEntry = new LibraryBook();
             libraryEntry.setBookId(bookId);
-            logger.info("Creating library entry for book with ID: {}", bookId);
-            libraryRepository.save(libraryEntry);
+            logger.info("Creating library book entry for book with ID: {}", bookId);
+            libraryBookRepository.save(libraryEntry);
         }
     }
 
@@ -62,6 +62,6 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void deleteLibraryBook(Long bookId) {
-        libraryRepository.deleteLibraryBook(bookId);
+        libraryBookRepository.deleteLibraryBook(bookId);
     }
 }

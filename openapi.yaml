@@ -1,0 +1,305 @@
+openapi: 3.0.3
+info:
+  title: Library OpenAPI спецификация
+  version: 0.0.1
+servers:
+  - url: http://localhost:9001/api/
+    description: Dev server
+paths:
+  /books:
+    get:
+      summary: Метод получения книг
+      tags:
+        - Books
+      operationId: getAllBooks
+      responses:
+        '200': 
+          description: Успешный ответ со списком книг
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Books'
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /books/{id}:
+    get:
+      summary: Метод получения книги по id
+      tags:
+        - Books
+      operationId: getBookById
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор книги
+          schema:
+            type: integer
+          example: 10    
+      responses:
+        '200': 
+          description: Успешный ответ с книгой
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /books/{isbn}:
+    get:
+      summary: Метод получения книги по isbn
+      tags:
+        - Books
+      operationId: getBookByIsbn
+      parameters: 
+        - name: isbn
+          in: path
+          required: true
+          description: Идентификатор книги
+          schema:
+            type: string
+          example: 11111111111    
+      responses:
+        '200': 
+          description: Успешный ответ с книгой
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+               
+  /books/save_book:
+    post:
+      summary: Создание новой книги
+      tags:
+        - Books
+      operationId: createBook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: Успешное создание книги
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /books/update_book:
+    put:
+      summary: Обновление существующей книги
+      tags:
+        - Books
+      operationId: updateBook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: Успешный изменение книги
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /books/delete_book/{isbn}:
+    delete:
+      summary: Удаление книги по isbn
+      tags:
+        - Books
+      operationId: deleteBookByIsbn
+      parameters: 
+        - name: isbn
+          in: path
+          required: true
+          description: Идентификатор книги
+          schema:
+            type: string
+          example: 11111111111    
+      responses:
+        '200': 
+          description: Успешное удаление
+          content:
+            application/json: {}
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+  
+  
+  
+  
+  
+  /library_books/free_books:
+    get:
+      summary: Метод получения свободных книг
+      tags:
+        - Library books
+      operationId: getfreeBooks
+      responses:
+        '200': 
+          description: Успешный ответ со списком книг
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Books'
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /library_books/save_library_book:
+    post:
+      summary: Создание новой книги в библиотеке
+      tags:
+        - Library books
+      operationId: createLibraryBook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Library'
+      responses:
+        '200':
+          description: Успешное создание записи о книге в библиотеке
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Library'
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /library_books/delete_library_book/{bookId}:
+    delete:
+      summary: Удаление книги из библиотеки по bookId
+      tags:
+        - Library books
+      operationId: deleteLibraryBook
+      parameters: 
+        - name: bookId
+          in: path
+          required: true
+          description: Идентификатор книги
+          schema:
+            type: integer
+          example: 10    
+      responses:
+        '200': 
+          description: Успешное удаление
+          content:
+            application/json: {}
+        'default':
+          description: Все нестандартное
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'         
+          
+          
+components:
+  schemas:
+    Book:
+      type: object
+      required: 
+        - isbn
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        isbn:
+          type: string
+          format: ^([0-9]{10}|[0-9]{13})$
+          example: 11111111111
+          description: ISBN книги
+        title:
+          type: string
+          example: Маленький принц
+          description: Название книги
+        genre:
+          type: string
+          example: Фикшин
+          description: Жанр книги
+        description:
+          type: string
+          example: Рассказ о маленьком мальчике и его приключениях
+          description: Описание книги
+        author:
+          type: string
+          example: Антуан де Сент-Экзюпери
+          description: Автор книги
+    Books:
+      type: array
+      items:
+        $ref: "#/components/schemas/Book"
+    Library:
+      type: object
+      required: 
+        - bookId
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        bookId:
+          type: integer
+          format: int64
+          example: 10
+          description: ID книги
+        issueTime:
+          type: string
+          format: 2024-02-26 16:54:19.825074
+          example: 2024-02-26 16:54:19.825074
+          description: Время  взятия книги из библиотеки
+        returnx Time:
+          type: string
+          format: 2024-02-26 16:54:19.825074
+          example: 2024-02-26 16:54:19.825074
+          description: Время  возвращения книги в библиотеку
+    Error:
+      type: object
+      required: 
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+     
+  

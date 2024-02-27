@@ -4,7 +4,7 @@ import com.example.library.model.Book;
 
 import java.util.List;
 
-public interface LibraryService {
+public interface LibraryBookService {
     List<Book> findFreeBook();
 
 
