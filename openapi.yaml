@@ -80,7 +80,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'  
                
-  /books/save_book:
+  /books/save:
     post:
       summary: Создание новой книги
       tags:
@@ -105,7 +105,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /books/update_book:
+  /books/update:
     put:
       summary: Обновление существующей книги
       tags:
@@ -130,7 +130,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /books/delete_book/{isbn}:
+  /books/delete/{isbn}:
     delete:
       summary: Удаление книги по isbn
       tags:
@@ -154,11 +154,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'  
-  
-  
-  
-  
+                $ref: '#/components/schemas/Error'
   
   /library_books/free_books:
     get:
@@ -179,7 +175,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /library_books/save_library_book:
+  /library_books/save:
     post:
       summary: Создание новой книги в библиотеке
       tags:
@@ -204,7 +200,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /library_books/delete_library_book/{bookId}:
+  /library_books/delete/{bookId}:
     delete:
       summary: Удаление книги из библиотеки по bookId
       tags:
@@ -229,8 +225,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'         
-          
-          
+
 components:
   schemas:
     Book:
@@ -301,5 +296,3 @@ components:
           type: integer
         message:
           type: string
-     
-  

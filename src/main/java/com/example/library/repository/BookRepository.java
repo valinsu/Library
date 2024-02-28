@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-
     @Modifying
     @Transactional
     @Query("delete from Book where isbn = :isbn")

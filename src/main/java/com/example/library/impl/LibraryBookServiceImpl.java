@@ -6,6 +6,7 @@ import com.example.library.repository.BookRepository;
 import com.example.library.repository.LibraryBookRepository;
 import com.example.library.service.LibraryBookService;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -15,18 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@Log4j2
 @Service
 @AllArgsConstructor
 public class LibraryBookServiceImpl implements LibraryBookService {
 
-
-    private static final Logger logger = LoggerFactory.getLogger(LibraryBookServiceImpl.class);
-
     private final LibraryBookRepository libraryBookRepository;
     private final BookRepository bookRepository;
-
-
-
 
     @Override
     public List<Book> findFreeBook() {
@@ -47,18 +43,14 @@ public class LibraryBookServiceImpl implements LibraryBookService {
     @Override
     public void createLibraryEntryAsync(Long bookId) {
         if (libraryBookRepository.existsByBookId(bookId)) {
-            logger.info("Exists library book for book with ID: {}", bookId);
+            log.info("Exists library book for book with ID: {}", bookId);
         } else {
             LibraryBook libraryEntry = new LibraryBook();
             libraryEntry.setBookId(bookId);
-            logger.info("Creating library book entry for book with ID: {}", bookId);
+            log.info("Creating library book entry for book with ID: {}", bookId);
             libraryBookRepository.save(libraryEntry);
         }
     }
-
-
-
-
 
     @Override
     public void deleteLibraryBook(Long bookId) {

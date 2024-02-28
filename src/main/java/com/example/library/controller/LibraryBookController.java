@@ -14,20 +14,19 @@ import java.util.List;
 public class LibraryBookController {
 
     private final LibraryBookService libraryService;
+
     @GetMapping("free_books")
     public List<Book> findFreeBook() {
         return libraryService.findFreeBook();
     }
 
-
-
-    @PostMapping("save_library_book")
+    @PostMapping("save")
     public LibraryBook createLibraryBook(@RequestBody LibraryBook library) {
         libraryService.createLibraryEntryAsync(library.getBookId());
         return library;
     }
 
-    @DeleteMapping("delete_library_book/{bookId}")
+    @DeleteMapping("delete/{bookId}")
     public void deleteLibraryBook(@PathVariable Long bookId){
         libraryService.deleteLibraryBook(bookId);
     }

@@ -16,6 +16,7 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+
     @Override
     public List<Book> findAllBook() {
         return bookRepository.findAll();
@@ -31,14 +32,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findBookById(Long id) {
-        return bookRepository.findBookById(id);
-        //.orElseThrow(() -> new BookNotFoundException(isbn);
+        return bookRepository.findBookById(id);=
     }
 
     @Override
     public Book findBookByIsbn(String isbn) {
         return bookRepository.findBookByIsbn(isbn);
-        //.orElseThrow(() -> new BookNotFoundException(isbn);
     }
 
     @Override

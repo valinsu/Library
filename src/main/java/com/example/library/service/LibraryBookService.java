@@ -6,10 +6,6 @@ import java.util.List;
 
 public interface LibraryBookService {
     List<Book> findFreeBook();
-
-
     void createLibraryEntryAsync(Long bookId);
-
-
     void deleteLibraryBook(Long bookId);
 }

@@ -35,7 +35,6 @@ public class InMemoryBookDao {
                 .orElse(null);
     }
 
-
     public Book updateBook(Book book) {
         var bookIndex = IntStream.range(0, BOOK.size())
                 .filter(index -> BOOK.get(index).getIsbn().equals(book.getIsbn()))
