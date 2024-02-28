@@ -9,13 +9,12 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class Library {
+public class LibraryBook {
+    private static final int MINUTES_TO_ADD = 1;
     @Id
     @GeneratedValue
     private Long id;
     private Long bookId;
     private LocalDateTime issueTime = LocalDateTime.now();
-    private LocalDateTime returnTime = LocalDateTime.now().plusMinutes(1);
-
-
+    private LocalDateTime returnTime = LocalDateTime.now().plusMinutes(MINUTES_TO_ADD);
 }

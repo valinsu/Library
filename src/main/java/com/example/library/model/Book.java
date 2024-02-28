@@ -29,5 +29,4 @@ public class Book {
     private String description;
     @NotBlank(message = "The book author must be defined")
     private String author;
-
 }

@@ -4,8 +4,8 @@ import com.example.library.model.Book;
 
 import java.util.List;
 
-public interface LibraryService {
+public interface LibraryBookService {
     List<Book> findFreeBook();
-
-    void createBookByLibrary(Long bookId);
+    void createLibraryEntryAsync(Long bookId);
+    void deleteLibraryBook(Long bookId);
 }

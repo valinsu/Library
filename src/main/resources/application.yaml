@@ -21,3 +21,5 @@ server:
     threads:
       min-spare: 5
       max: 50
+service:
+  url: http://localhost:9001
